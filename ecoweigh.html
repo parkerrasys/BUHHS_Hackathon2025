@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Recycability Checker</title>
+  <link rel="icon" type="image/x-icon" href="RecycleLogo.png">
+  <link href="style.css" rel="stylesheet" type="text/css" />
+</head>
+  
+<body>
+  <header>
+    <h1>Recycability Checker</h1>
+    <p>Find out if your items can be recycled at home or at a drop-off location</p>
+  </header>
+
+  <main>
+    <div class="container">
+      <section id="search-section">
+        <h2>Find out if your items are recycable!</h2>
+        
+        <form id="recycling-form">
+          <div class="form-group">
+            <label for="item-type">Type of Item:</label>
+            <select id="item-type" class="dropdown">
+              <option value="" selected disabled>Select item type</option>
+              <option value="bottle">Bottle</option>
+              <option value="container">Container/Packaging</option>
+              <option value="bag">Bag/Pouch</option>
+              <option value="wrap">Wrap/Film</option>
+              <option value="electronic">Electronic Device</option>
+              <option value="clothing">Clothing/Textile</option>
+              <option value="other">Other Item</option>
+            </select>
+          </div>
+
+          <!-- Material Type -->
+          <div class="form-group">
+            <label for="material-type">Material Type:</label>
+            <select id="material-type" class="dropdown">
+              <option value="" selected disabled>Select material type</option>
+              <option value="plastic">Plastic</option>
+              <option value="paper">Paper/Cardboard</option>
+              <option value="glass">Glass</option>
+              <option value="metal">Metal</option>
+              <option value="electronics">Electronics</option>
+              <option value="textiles">Textiles/Fabric</option>
+              <option value="composite">Composite Materials</option>
+            </select>
+          </div>
+
+          <!-- Material Subtype (initially for plastics) -->
+          <div class="form-group" id="plastic-types-container">
+            <label for="plastic-type">Plastic Type:</label>
+            <select id="plastic-type" class="dropdown">
+              <option value="" selected disabled>Select plastic type</option>
+              <option value="1">Type 1 (PET/PETE)</option>
+              <option value="2">Type 2 (HDPE)</option>
+              <option value="3">Type 3 (PVC/V)</option>
+              <option value="4">Type 4 (LDPE)</option>
+              <option value="5">Type 5 (PP)</option>
+              <option value="6">Type 6 (PS)</option>
+              <option value="7">Type 7 (Other)</option>
+              <option value="unknown">Unknown</option>
+            </select>
+            <div id="material-description" class="material-description"></div>
+          </div>
+
+          <!-- Size of Item -->
+          <div class="form-group">
+            <label for="item-size">Size of Item:</label>
+            <select id="item-size" class="dropdown">
+              <option value="" selected disabled>Select size</option>
+              <option value="pocket">Pocket-sized (fits in hand)</option>
+              <option value="handheld">Handheld (fits in one hand)</option>
+              <option value="medium">Medium (needs two hands)</option>
+              <option value="large">Large (difficult to carry alone)</option>
+            </select>
+          </div>
+
+          <!-- Condition -->
+          <div class="form-group">
+            <label for="item-condition">Condition:</label>
+            <select id="item-condition" class="dropdown">
+              <option value="" selected disabled>Select condition</option>
+              <option value="clean">Clean</option>
+              <option value="dirty">Dirty (can be cleaned)</option>
+              <option value="contaminated">Contaminated (cannot be cleaned)</option>
+            </select>
+          </div>
+
+          <!-- Location -->
+          <div class="form-group">
+            <label for="location">Your Location:</label>
+            <input type="text" id="location" placeholder="Enter city or zip code">
+          </div>
+
+          <button type="submit" id="check-btn">Check Recyclability</button>
+        </form>
+      </section>
+
+      <section id="results-section" class="hidden">
+        <h2>Recycling Results</h2>
+        <div id="recyclability-result"></div>
+        
+        <div id="suggestions-container" class="hidden">
+          <h3>Suggested Drop-off Locations</h3>
+          <div id="locations-list"></div>
+        </div>
+        
+        <div id="recycling-info" class="hidden">
+          <h3>Additional Information</h3>
+          <div id="info-content"></div>
+        </div>
+        
+        <button id="search-again-btn">Search Again</button>
+      </section>
+
+       <section id="eco-way-searcher">
+        <h2>EcoWeigh Scale</h2>
+        <div id="eco-weigh-connection-info">
+          <h3>Click the button below to search for the EcoWeigh scale on your local network. Once connected, you will be sent to the EcoWeigh Data page.</h3>
+          <div id="locations-list"></div>
+        </div>
+        
+        <button id="search-for-scale" onclick="window.location.href='https://parkerrasys.github.io/BUHHS_Hackathon2025/test';">
+  Begin Connection Attempt
+</button>
+      </section>
+    </div>
+  </main>
+
+  <footer>
+    <p>♻️🌍♻️🌍♻️🌍BUHHS 2025 Hackathon Project | Created by: Parker Rasys & Quinn Richardson🌍♻️🌍♻️🌍♻️</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

@@ -681,3 +681,43 @@ plasticTypeSelect.addEventListener("change", function() {
   if (itemSizeSelect) itemSizeSelect.selectedIndex = 0;
   if (itemConditionSelect) itemConditionSelect.selectedIndex = 0;
 });
+
+
+//ecowreigh stuff
+
+    const weightSlider = document.getElementById('item-weight');
+    const weightValue = document.getElementById('weight-value');
+    const resourceSavings = document.getElementById('resource-savings');
+    const savedWood = document.getElementById('saved-wood');
+    const savedCrudeOil = document.getElementById('saved-crude-oil');
+
+    weightSlider.addEventListener('input', function() {
+      weightValue.textContent = weightSlider.value + ' lbs';
+      updateResourceSavings();
+    });
+
+    let selectedMaterial = '';
+    
+    document.getElementById('paper-btn').addEventListener('click', () => {
+      selectedMaterial = 'paper';
+      updateResourceSavings();
+    });
+
+    document.getElementById('plastic-btn').addEventListener('click', () => {
+      selectedMaterial = 'plastic';
+      updateResourceSavings();
+    });
+
+    function updateResourceSavings() {
+      if (selectedMaterial === 'paper') {
+        resourceSavings.classList.remove('hidden');
+        savedWood.textContent = `Wood: ${(weightSlider.value / 2.75).toFixed(2)} lbs`; // Example factor for wood
+        savedCrudeOil.textContent = `Crude Oil: ${(weightSlider.value * 0.1).toFixed(2)} lbs`; // Example factor for crude oil
+      } else if (selectedMaterial === 'plastic') {
+        resourceSavings.classList.remove('hidden');
+        savedWood.textContent = `Wood: 0 lbs`;
+        savedCrudeOil.textContent = `Crude Oil: ${(weightSlider.value * 2.5).toFixed(2)} lbs`; // Example factor for crude oil
+      } else {
+        resourceSavings.classList.add('hidden');
+      }
+    }

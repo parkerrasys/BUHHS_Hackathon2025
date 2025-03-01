@@ -98,7 +98,7 @@
     function updateResourceSavings() {
       if (selectedMaterial === 'paper') {
         resourceSavings.classList.remove('hidden');
-        savedWood.textContent = `Wood: ${(weightSlider.value * 0.6).toFixed(2)} lbs`; // Example factor for wood
+        savedWood.textContent = `Wood: ${(weightSlider.value / 2.75).toFixed(2)} lbs`; // Example factor for wood
         savedCrudeOil.textContent = `Crude Oil: ${(weightSlider.value * 0.1).toFixed(2)} lbs`; // Example factor for crude oil
       } else if (selectedMaterial === 'plastic') {
         resourceSavings.classList.remove('hidden');

@@ -26,8 +26,7 @@
         <form id="recycling-form">
           <div class="form-group">
             <label for="material-type">Select Material Type:</label>
-            <button type="button" class="material-btn" id="wood-btn">Wood</button>
-            <button type="button" class="material-btn" id="glass-btn">Glass</button>
+            <button type="button" class="material-btn" id="paper-btn">Paper</button>
             <button type="button" class="material-btn" id="plastic-btn">Plastic</button>
           </div>
 
@@ -42,8 +41,7 @@
           <div id="resource-savings" class="form-group hidden">
             <h3>Resources Saved:</h3>
             <p id="saved-wood">Wood: 0 lbs</p>
-            <p id="saved-oil">Oil: 0 lbs</p>
-            <p id="saved-plastic">Plastic: 0 lbs</p>
+            <p id="saved-crude-oil">Crude Oil: 0 lbs</p>
           </div>
           
           <button type="submit" id="check-btn">Check Recyclability</button>
@@ -78,8 +76,7 @@
     const weightValue = document.getElementById('weight-value');
     const resourceSavings = document.getElementById('resource-savings');
     const savedWood = document.getElementById('saved-wood');
-    const savedOil = document.getElementById('saved-oil');
-    const savedPlastic = document.getElementById('saved-plastic');
+    const savedCrudeOil = document.getElementById('saved-crude-oil');
 
     weightSlider.addEventListener('input', function() {
       weightValue.textContent = weightSlider.value + ' lbs';
@@ -88,13 +85,8 @@
 
     let selectedMaterial = '';
     
-    document.getElementById('wood-btn').addEventListener('click', () => {
-      selectedMaterial = 'wood';
-      updateResourceSavings();
-    });
-
-    document.getElementById('glass-btn').addEventListener('click', () => {
-      selectedMaterial = 'glass';
+    document.getElementById('paper-btn').addEventListener('click', () => {
+      selectedMaterial = 'paper';
       updateResourceSavings();
     });
 
@@ -104,21 +96,14 @@
     });
 
     function updateResourceSavings() {
-      if (selectedMaterial === 'wood') {
+      if (selectedMaterial === 'paper') {
         resourceSavings.classList.remove('hidden');
-        savedWood.textContent = `Wood: ${(weightSlider.value * 0.5).toFixed(2)} lbs`; // Example factor for wood
-        savedOil.textContent = `Oil: ${(weightSlider.value * 0.3).toFixed(2)} lbs`; // Example factor for oil
-        savedPlastic.textContent = `Plastic: 0 lbs`;
-      } else if (selectedMaterial === 'glass') {
-        resourceSavings.classList.remove('hidden');
-        savedWood.textContent = `Wood: 0 lbs`;
-        savedOil.textContent = `Oil: 0 lbs`;
-        savedPlastic.textContent = `Plastic: ${(weightSlider.value * 0.2).toFixed(2)} lbs`; // Example factor for plastic
+        savedWood.textContent = `Wood: ${(weightSlider.value * 0.6).toFixed(2)} lbs`; // Example factor for wood
+        savedCrudeOil.textContent = `Crude Oil: ${(weightSlider.value * 0.1).toFixed(2)} lbs`; // Example factor for crude oil
       } else if (selectedMaterial === 'plastic') {
         resourceSavings.classList.remove('hidden');
         savedWood.textContent = `Wood: 0 lbs`;
-        savedOil.textContent = `Oil: ${(weightSlider.value * 0.4).toFixed(2)} lbs`; // Example factor for oil
-        savedPlastic.textContent = `Plastic: ${(weightSlider.value * 0.7).toFixed(2)} lbs`; // Example factor for plastic
+        savedCrudeOil.textContent = `Crude Oil: ${(weightSlider.value * 0.3).toFixed(2)} lbs`; // Example factor for crude oil
       } else {
         resourceSavings.classList.add('hidden');
       }

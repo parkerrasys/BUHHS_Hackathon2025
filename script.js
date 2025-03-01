@@ -232,7 +232,7 @@ const recyclableDatabase = {
         recyclable: false, 
         dropOff: true, 
         conditions: ['clean'], 
-        info: "Plastic film and bags should be taken to store drop-off locations, not placed in curbside bins." 
+        info: "Plastic film and bags should be taken to store drop-off locations, not placed in curbside bins. They can also be re-used!" 
       }
     },
     paper: {
@@ -240,7 +240,7 @@ const recyclableDatabase = {
         recyclable: true,
         dropOff: false,
         conditions: [],
-        info: "Paper bags are recyclable in most curbside programs."
+        info: "Paper bags are recyclable in most curbside programs. They can also be re-used!"
       }
     },
     textiles: {

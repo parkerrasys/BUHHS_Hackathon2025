@@ -14,91 +14,38 @@
     <h1>EcoWeigh Scale Data</h1>
     <p>Connection: Strong | You can now place an item on the scale</p>
     <button id="search-for-scale" onclick="window.location.href='index.html';">
-  Return to Main Page
-</button>
+      Return to Main Page
+    </button>
   </header>
 
   <main>
     <div class="container">
       <section id="search-section">
-        <h2>Find out if your items are recycable!</h2>
+        <h2>Find out if your items are recyclable!</h2>
         
         <form id="recycling-form">
           <div class="form-group">
-            <label for="item-type">Type of Item:</label>
-            <select id="item-type" class="dropdown">
-              <option value="" selected disabled>Select item type</option>
-              <option value="bottle">Bottle</option>
-              <option value="container">Container/Packaging</option>
-              <option value="bag">Bag/Pouch</option>
-              <option value="wrap">Wrap/Film</option>
-              <option value="electronic">Electronic Device</option>
-              <option value="clothing">Clothing/Textile</option>
-              <option value="other">Other Item</option>
-            </select>
+            <label for="material-type">Select Material Type:</label>
+            <button type="button" class="material-btn" id="wood-btn">Wood</button>
+            <button type="button" class="material-btn" id="glass-btn">Glass</button>
+            <button type="button" class="material-btn" id="plastic-btn">Plastic</button>
           </div>
 
-          <!-- Material Type -->
+          <!-- Weight Slider -->
           <div class="form-group">
-            <label for="material-type">Material Type:</label>
-            <select id="material-type" class="dropdown">
-              <option value="" selected disabled>Select material type</option>
-              <option value="plastic">Plastic</option>
-              <option value="paper">Paper/Cardboard</option>
-              <option value="glass">Glass</option>
-              <option value="metal">Metal</option>
-              <option value="electronics">Electronics</option>
-              <option value="textiles">Textiles/Fabric</option>
-              <option value="composite">Composite Materials</option>
-            </select>
+            <label for="item-weight">Set Item Weight (lbs):</label>
+            <input type="range" id="item-weight" min="0" max="50" value="0" class="slider">
+            <span id="weight-value">0 lbs</span>
           </div>
 
-          <!-- Material Subtype (initially for plastics) -->
-          <div class="form-group" id="plastic-types-container">
-            <label for="plastic-type">Plastic Type:</label>
-            <select id="plastic-type" class="dropdown">
-              <option value="" selected disabled>Select plastic type</option>
-              <option value="1">Type 1 (PET/PETE)</option>
-              <option value="2">Type 2 (HDPE)</option>
-              <option value="3">Type 3 (PVC/V)</option>
-              <option value="4">Type 4 (LDPE)</option>
-              <option value="5">Type 5 (PP)</option>
-              <option value="6">Type 6 (PS)</option>
-              <option value="7">Type 7 (Other)</option>
-              <option value="unknown">Unknown</option>
-            </select>
-            <div id="material-description" class="material-description"></div>
+          <!-- Resource Savings Info -->
+          <div id="resource-savings" class="form-group hidden">
+            <h3>Resources Saved:</h3>
+            <p id="saved-wood">Wood: 0 lbs</p>
+            <p id="saved-oil">Oil: 0 lbs</p>
+            <p id="saved-plastic">Plastic: 0 lbs</p>
           </div>
-
-          <!-- Size of Item -->
-          <div class="form-group">
-            <label for="item-size">Size of Item:</label>
-            <select id="item-size" class="dropdown">
-              <option value="" selected disabled>Select size</option>
-              <option value="pocket">Pocket-sized (fits in hand)</option>
-              <option value="handheld">Handheld (fits in one hand)</option>
-              <option value="medium">Medium (needs two hands)</option>
-              <option value="large">Large (difficult to carry alone)</option>
-            </select>
-          </div>
-
-          <!-- Condition -->
-          <div class="form-group">
-            <label for="item-condition">Condition:</label>
-            <select id="item-condition" class="dropdown">
-              <option value="" selected disabled>Select condition</option>
-              <option value="clean">Clean</option>
-              <option value="dirty">Dirty (can be cleaned)</option>
-              <option value="contaminated">Contaminated (cannot be cleaned)</option>
-            </select>
-          </div>
-
-          <!-- Location -->
-          <div class="form-group">
-            <label for="location">Your Location:</label>
-            <input type="text" id="location" placeholder="Enter city or zip code">
-          </div>
-
+          
           <button type="submit" id="check-btn">Check Recyclability</button>
         </form>
       </section>
@@ -125,6 +72,58 @@
   <footer>
     <p>♻️🌍♻️🌍♻️🌍BUHHS 2025 Hackathon Project | Created by: Parker Rasys & Quinn Richardson🌍♻️🌍♻️🌍♻️</p>
   </footer>
+
+  <script>
+    const weightSlider = document.getElementById('item-weight');
+    const weightValue = document.getElementById('weight-value');
+    const resourceSavings = document.getElementById('resource-savings');
+    const savedWood = document.getElementById('saved-wood');
+    const savedOil = document.getElementById('saved-oil');
+    const savedPlastic = document.getElementById('saved-plastic');
+
+    weightSlider.addEventListener('input', function() {
+      weightValue.textContent = weightSlider.value + ' lbs';
+      updateResourceSavings();
+    });
+
+    let selectedMaterial = '';
+    
+    document.getElementById('wood-btn').addEventListener('click', () => {
+      selectedMaterial = 'wood';
+      updateResourceSavings();
+    });
+
+    document.getElementById('glass-btn').addEventListener('click', () => {
+      selectedMaterial = 'glass';
+      updateResourceSavings();
+    });
+
+    document.getElementById('plastic-btn').addEventListener('click', () => {
+      selectedMaterial = 'plastic';
+      updateResourceSavings();
+    });
+
+    function updateResourceSavings() {
+      if (selectedMaterial === 'wood') {
+        resourceSavings.classList.remove('hidden');
+        savedWood.textContent = `Wood: ${(weightSlider.value * 0.5).toFixed(2)} lbs`; // Example factor for wood
+        savedOil.textContent = `Oil: ${(weightSlider.value * 0.3).toFixed(2)} lbs`; // Example factor for oil
+        savedPlastic.textContent = `Plastic: 0 lbs`;
+      } else if (selectedMaterial === 'glass') {
+        resourceSavings.classList.remove('hidden');
+        savedWood.textContent = `Wood: 0 lbs`;
+        savedOil.textContent = `Oil: 0 lbs`;
+        savedPlastic.textContent = `Plastic: ${(weightSlider.value * 0.2).toFixed(2)} lbs`; // Example factor for plastic
+      } else if (selectedMaterial === 'plastic') {
+        resourceSavings.classList.remove('hidden');
+        savedWood.textContent = `Wood: 0 lbs`;
+        savedOil.textContent = `Oil: ${(weightSlider.value * 0.4).toFixed(2)} lbs`; // Example factor for oil
+        savedPlastic.textContent = `Plastic: ${(weightSlider.value * 0.7).toFixed(2)} lbs`; // Example factor for plastic
+      } else {
+        resourceSavings.classList.add('hidden');
+      }
+    }
+  </script>
 
   <script src="script.js"></script>
 </body>

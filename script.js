@@ -712,11 +712,11 @@ plasticTypeSelect.addEventListener("change", function() {
       if (selectedMaterial === 'paper') {
         resourceSavings.classList.remove('hidden');
         savedWood.textContent = `Wood: ${(weightSlider.value / 2.75).toFixed(2)} lbs`; // Example factor for wood
-        savedCrudeOil.textContent = `Crude Oil: ${(weightSlider.value * 0.1).toFixed(2)} lbs`; // Example factor for crude oil
+        savedCrudeOil.textContent = `Crude Oil: ${(weightSlider.value / 2.75).toFixed(2)} lbs`; // Example factor for crude oil
       } else if (selectedMaterial === 'plastic') {
         resourceSavings.classList.remove('hidden');
         savedWood.textContent = `Wood: 0 lbs`;
-        savedCrudeOil.textContent = `Crude Oil: ${(weightSlider.value * 2.5).toFixed(2)} lbs`; // Example factor for crude oil
+        savedCrudeOil.textContent = `Crude Oil: ${(weightSlider.value / 2.5).toFixed(2)} lbs`; // Example factor for crude oil
       } else {
         resourceSavings.classList.add('hidden');
       }

@@ -65,6 +65,7 @@
   let selectedMaterial = '';
   
   document.getElementById('paper-btn').addEventListener('click', () => {
+    savedCrudeOil.textContent = `Crude Oil: 0 lbs`;
     selectedMaterial = 'paper';
     weightSlider.value = 0;
     weightValue.textContent = '0 lbs';
@@ -72,6 +73,7 @@
   });
 
   document.getElementById('plastic-btn').addEventListener('click', () => {
+    savedWood.textContent = `Wood: 0 lbs`;
     selectedMaterial = 'plastic';
     weightSlider.value = 0;
     weightValue.textContent = '0 lbs';

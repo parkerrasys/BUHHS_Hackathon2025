@@ -1,5 +1,3 @@
-
-// Material descriptions for educational purposes
 const materialDescriptions = {
   plastic: {
     '1': "Type 1 (PET/PETE): Polyethylene Terephthalate - Common in water bottles, soda bottles, cooking oil containers, and peanut butter jars. Clear, tough, and solvent resistant.",
@@ -48,8 +46,6 @@ const materialDescriptions = {
   }
 };
 
-// Database template for recyclable items
-// This is where you can add or modify recyclable items and their properties
 const recyclableDatabase = {
   // Structure example for items:
   // [itemType]: {
@@ -63,7 +59,6 @@ const recyclableDatabase = {
   //   }
   // }
   
-  // Add specific handling for electronic items
   electronic: {
     electronics: {
       'small': { 
@@ -93,7 +88,6 @@ const recyclableDatabase = {
     }
   },
   
-  // Plastic items
   bottle: {
     plastic: {
       '1': { 
@@ -312,10 +306,7 @@ const recyclableDatabase = {
   }
 };
 
-// Template for drop-off locations
-// You can add real locations as needed
 const dropOffLocations = {
-  // Structure: [zip code or city]: [array of locations]
   "12345": [
     { name: "Community Recycling Center", address: "123 Green St", acceptedItems: ["1", "2", "3", "4", "5", "6", "7"], phone: "555-123-4567" },
     { name: "Grocery Store A", address: "456 Main St", acceptedItems: ["2", "4"], phone: "555-987-6543" }
@@ -324,10 +315,8 @@ const dropOffLocations = {
     { name: "City Waste Management", address: "789 Ecology Blvd", acceptedItems: ["1", "2", "5", "6"], phone: "555-456-7890" },
     { name: "Sustainable Solutions", address: "321 Earth Way", acceptedItems: ["3", "4", "7"], phone: "555-234-5678" }
   ],
-  // Add more locations as needed
 };
 
-// Get form elements
 const recyclingForm = document.getElementById("recycling-form");
 const itemTypeSelect = document.getElementById("item-type");
 const materialTypeSelect = document.getElementById("material-type");
@@ -339,7 +328,6 @@ const itemConditionSelect = document.getElementById("item-condition");
 const locationInput = document.getElementById("location");
 const checkButton = document.getElementById("check-btn");
 
-// Get results section elements
 const resultsSection = document.getElementById("results-section");
 const recyclabilityResult = document.getElementById("recyclability-result");
 const suggestionsContainer = document.getElementById("suggestions-container");
@@ -348,33 +336,26 @@ const recyclingInfo = document.getElementById("recycling-info");
 const infoContent = document.getElementById("info-content");
 const searchAgainBtn = document.getElementById("search-again-btn");
 
-// Add event listeners
 recyclingForm.addEventListener("submit", checkRecyclability);
 searchAgainBtn.addEventListener("click", resetForm);
 materialTypeSelect.addEventListener("change", updateMaterialSubtypes);
 plasticTypeSelect.addEventListener("change", updateMaterialDescription);
 
-// Initialize with plastic types hidden until material type is selected
 plasticTypesContainer.classList.add("hidden");
 
-// Function to update material subtypes based on material selection
 function updateMaterialSubtypes() {
   const materialType = materialTypeSelect.value;
   
-  // Clear and hide the material description
   materialDescription.textContent = "";
   materialDescription.classList.add("hidden");
   
-  // Show/hide plastic types container based on material selection
   if (materialType === "plastic") {
     plasticTypesContainer.classList.remove("hidden");
     plasticTypesContainer.querySelector("label").textContent = "Plastic Type:";
-    // Reset the plastic type select
     plasticTypeSelect.selectedIndex = 0;
   } else if (materialType === "paper") {
     plasticTypesContainer.classList.remove("hidden");
     plasticTypesContainer.querySelector("label").textContent = "Paper Type:";
-    // Replace options with paper types
     updateSelectOptions(plasticTypeSelect, [
       { value: "", text: "Select paper type", disabled: true, selected: true },
       { value: "newspaper", text: "Newspaper" },
@@ -436,12 +417,9 @@ function updateMaterialSubtypes() {
   }
 }
 
-// Function to update dropdown options
 function updateSelectOptions(selectElement, options) {
-  // Clear all existing options
   selectElement.innerHTML = "";
   
-  // Add new options
   options.forEach(option => {
     const optionElement = document.createElement("option");
     optionElement.value = option.value;
@@ -452,7 +430,6 @@ function updateSelectOptions(selectElement, options) {
   });
 }
 
-// Function to display material descriptions
 function updateMaterialDescription() {
   const materialType = materialTypeSelect.value;
   const subType = plasticTypeSelect.value;
@@ -469,7 +446,6 @@ function updateMaterialDescription() {
 function checkRecyclability(e) {
   e.preventDefault();
   
-  // Get form values
   const itemType = itemTypeSelect.value;
   const materialType = materialTypeSelect.value;
   const materialSubtype = plasticTypeSelect.value;
@@ -477,28 +453,23 @@ function checkRecyclability(e) {
   const itemCondition = itemConditionSelect.value;
   const location = locationInput.value;
   
-  // Validate input
   if (!itemType || !materialType || (materialType === "plastic" && !materialSubtype) || !itemSize || !itemCondition || !location) {
     alert("Please fill out all fields");
     return;
   }
   
-  // Check if item exists in database
   if (recyclableDatabase[itemType] && 
       recyclableDatabase[itemType][materialType] && 
       recyclableDatabase[itemType][materialType][materialSubtype]) {
     
     const itemData = recyclableDatabase[itemType][materialType][materialSubtype];
     
-    // Determine recyclability based on conditions
     let isRecyclable = itemData.recyclable;
     
-    // Check conditions (e.g., must be clean)
     if (itemData.conditions.includes('clean') && itemCondition !== 'clean') {
       isRecyclable = false;
     }
     
-    // Display result
     if (isRecyclable) {
       recyclabilityResult.textContent = "This item can be recycled at home in your curbside bin.";
       recyclabilityResult.className = "recyclable";
@@ -511,7 +482,6 @@ function checkRecyclability(e) {
       recyclabilityResult.className = "not-recyclable";
     }
     
-    // Show additional information
     infoContent.textContent = itemData.info || "No additional information available.";
     recyclingInfo.classList.remove("hidden");
     
@@ -521,29 +491,22 @@ function checkRecyclability(e) {
     recyclingInfo.classList.add("hidden");
   }
   
-  // Show results section
   resultsSection.classList.remove("hidden");
   
-  // Scroll to results
   resultsSection.scrollIntoView({ behavior: 'smooth' });
 }
 
 function showDropOffLocations(userLocation, materialSubtype) {
-  // Check if we have locations for the user's area
-  // This is a simple check - in a real app, you'd use geocoding or a proper location search
   if (dropOffLocations[userLocation]) {
     const locations = dropOffLocations[userLocation];
     
-    // Filter locations that accept this material type
     const relevantLocations = locations.filter(loc => 
       loc.acceptedItems.includes(materialSubtype)
     );
     
     if (relevantLocations.length > 0) {
-      // Clear previous locations
       locationsList.innerHTML = "";
       
-      // Add each location to the list
       relevantLocations.forEach(location => {
         const locationItem = document.createElement("div");
         locationItem.className = "location-item";
@@ -569,37 +532,27 @@ function showDropOffLocations(userLocation, materialSubtype) {
 }
 
 function resetForm() {
-  // Hide results section
   resultsSection.classList.add("hidden");
   
-  // Reset form
   recyclingForm.reset();
   
-  // Hide subtypes, descriptions and info
   plasticTypesContainer.classList.add("hidden");
   materialDescription.classList.add("hidden");
   suggestionsContainer.classList.add("hidden");
   recyclingInfo.classList.add("hidden");
   
-  // Scroll back to form
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-// Update drop-off locations database to include more material types
-// Expand the database as needed
-// Update locations to include all material types
 Object.keys(dropOffLocations).forEach(location => {
   dropOffLocations[location].forEach(place => {
-    // Add all plastic types
     if (!place.acceptedItems.includes('1')) place.acceptedItems.push('1');
     if (!place.acceptedItems.includes('2')) place.acceptedItems.push('2');
     
-    // Add other material types
     place.acceptedItems.push('newspaper', 'cardboard', 'clear', 'aluminum', 'small', 'cotton');
   });
 });
 
-// Define valid material types for each item type
 const validMaterialsForItems = {
   bottle: ["plastic", "glass", "metal"],
   container: ["plastic", "paper", "glass", "metal"],
@@ -611,7 +564,6 @@ const validMaterialsForItems = {
   other: ["plastic", "paper", "glass", "metal", "electronics", "textiles", "composite"]
 };
 
-// Material type display names
 const materialDisplayNames = {
   plastic: "Plastic",
   paper: "Paper/Cardboard",
@@ -622,22 +574,17 @@ const materialDisplayNames = {
   composite: "Composite Materials"
 };
 
-// Update dropdowns based on item type selection
 itemTypeSelect.addEventListener("change", function() {
   const selectedItemType = this.value;
   
-  // Reset material type selection
   materialTypeSelect.selectedIndex = 0;
   
-  // Get valid materials for the selected item type
   const validMaterials = validMaterialsForItems[selectedItemType] || Object.keys(materialDisplayNames);
   
-  // Create options array with default first option
   const materialOptions = [
     { value: "", text: "Select material type", disabled: true, selected: true }
   ];
   
-  // Add valid material options
   validMaterials.forEach(material => {
     materialOptions.push({
       value: material,
@@ -645,39 +592,29 @@ itemTypeSelect.addEventListener("change", function() {
     });
   });
   
-  // Update select options
   updateSelectOptions(materialTypeSelect, materialOptions);
   
-  // Hide material subtype container
   plasticTypesContainer.classList.add("hidden");
   
-  // Hide material description
   materialDescription.textContent = "";
   materialDescription.classList.add("hidden");
   
-  // Reset subsequent form fields
   if (itemSizeSelect) itemSizeSelect.selectedIndex = 0;
   if (itemConditionSelect) itemConditionSelect.selectedIndex = 0;
 });
 
-// Enable reselection functionality
 materialTypeSelect.addEventListener("change", function() {
-  // When material type changes, reset any selected subtypes
   if (plasticTypeSelect) {
     plasticTypeSelect.selectedIndex = 0;
   }
   
-  // Update material subtypes based on material selection
   updateMaterialSubtypes();
   
-  // Reset subsequent form fields if this selection changes
   if (itemSizeSelect) itemSizeSelect.selectedIndex = 0;
   if (itemConditionSelect) itemConditionSelect.selectedIndex = 0;
 });
 
-// Allow going back to change selections at any point
 plasticTypeSelect.addEventListener("change", function() {
-  // Reset subsequent form fields if this selection changes
   if (itemSizeSelect) itemSizeSelect.selectedIndex = 0;
   if (itemConditionSelect) itemConditionSelect.selectedIndex = 0;
 });

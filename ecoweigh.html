@@ -30,14 +30,12 @@
             <button type="button" class="material-btn" id="plastic-btn">Plastic</button>
           </div>
 
-          <!-- Weight Slider -->
           <div class="form-group">
             <label for="item-weight">Set Item Weight (lbs):</label>
             <input type="range" id="item-weight" min="0" max="50" value="0" class="slider">
             <span id="weight-value">0 lbs</span>
           </div>
 
-          <!-- Resource Savings Info -->
           <div id="resource-savings" class="form-group hidden">
             <h3>Resources Saved:</h3>
             <p id="saved-wood">Wood: 0 lbs</p>
@@ -59,7 +57,6 @@
   const savedWood = document.getElementById('saved-wood');
   const savedCrudeOil = document.getElementById('saved-crude-oil');
 
-  // Update weight value when the slider is moved
   weightSlider.addEventListener('input', function() {
     weightValue.textContent = weightSlider.value + ' lbs';
     updateResourceSavings();
@@ -67,7 +64,6 @@
 
   let selectedMaterial = '';
   
-  // Paper button click event
   document.getElementById('paper-btn').addEventListener('click', () => {
     selectedMaterial = 'paper';
     weightSlider.value = 0;
@@ -85,10 +81,10 @@
   function updateResourceSavings() {
     if (selectedMaterial === 'paper') {
       resourceSavings.classList.remove('hidden');
-      savedWood.textContent = `Wood: ${(weightSlider.value / 2.75).toFixed(2)} lbs`; // Example factor for wood
+      savedWood.textContent = `Wood: ${(weightSlider.value / 2.75).toFixed(2)} lbs`;
     } else if (selectedMaterial === 'plastic') {
       resourceSavings.classList.remove('hidden');
-      savedCrudeOil.textContent = `Crude Oil: ${(weightSlider.value / 2.5).toFixed(2)} lbs`; // Example factor for crude oil
+      savedCrudeOil.textContent = `Crude Oil: ${(weightSlider.value / 2.5).toFixed(2)} lbs`;
     } else {
       resourceSavings.classList.add('hidden');
     }

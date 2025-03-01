@@ -65,7 +65,7 @@
   let selectedMaterial = '';
   
   document.getElementById('paper-btn').addEventListener('click', () => {
-    savedCrudeOil.textContent = `Crude Oil: 0 lbs`;
+    savedCrudeOil.textContent = `Crude Oil: 0.00 lbs`;
     selectedMaterial = 'paper';
     weightSlider.value = 0;
     weightValue.textContent = '0 lbs';
@@ -73,7 +73,7 @@
   });
 
   document.getElementById('plastic-btn').addEventListener('click', () => {
-    savedWood.textContent = `Wood: 0 lbs`;
+    savedWood.textContent = `Wood: 0.00 lbs`;
     selectedMaterial = 'plastic';
     weightSlider.value = 0;
     weightValue.textContent = '0 lbs';
@@ -83,10 +83,10 @@
   function updateResourceSavings() {
     if (selectedMaterial === 'paper') {
       resourceSavings.classList.remove('hidden');
-      savedWood.textContent = `Wood: ${(weightSlider.value / 2.75).toFixed(2)} lbs`;
+      savedWood.textContent = `Wood: ${(weightSlider.value * 2.75).toFixed(2)} lbs`;
     } else if (selectedMaterial === 'plastic') {
       resourceSavings.classList.remove('hidden');
-      savedCrudeOil.textContent = `Crude Oil: ${(weightSlider.value / 2.5).toFixed(2)} lbs`;
+      savedCrudeOil.textContent = `Crude Oil: ${(weightSlider.value * 2.5).toFixed(2)} lbs`;
     } else {
       resourceSavings.classList.add('hidden');
     }

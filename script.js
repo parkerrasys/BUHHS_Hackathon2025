@@ -226,7 +226,7 @@ const recyclableDatabase = {
         recyclable: false, 
         dropOff: true, 
         conditions: ['clean'], 
-        info: "Plastic bags should not go in curbside recycling. Take them to grocery store drop-off points." 
+        info: "Plastic bags should not go in curbside recycling. You can take them to grocery store to be re-used!" 
       },
       '4': { 
         recyclable: false, 
